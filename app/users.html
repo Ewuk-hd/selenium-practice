@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Пользователи</title>
+  <style>
+    table { border-collapse: collapse; margin-top: 12px; }
+    td, th { border: 1px solid #999; padding: 4px 10px; }
+    #modal { border: 2px solid #333; padding: 16px; margin-top: 16px; }
+  </style>
+</head>
+<body>
+  <h1>Пользователи</h1>
+  <button id="load">Загрузить пользователей</button>
+  <button id="open-modal">О программе</button>
+
+  <p id="loader" hidden>Загрузка...</p>
+
+  <table id="users" hidden>
+    <thead><tr><th>Имя</th><th>Роль</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <div id="modal" hidden>
+    <p id="modal-text">Версия 1.0. Учебная страница для автотестов.</p>
+    <button id="close-modal">Закрыть</button>
+  </div>
+
+  <script>
+    const users = [
+      { name: 'Анна', role: 'Тестировщик' },
+      { name: 'Борис', role: 'Разработчик' },
+      { name: 'Вера', role: 'Менеджер' },
+    ];
+
+    const loadBtn = document.getElementById('load');
+    const loader = document.getElementById('loader');
+    const table = document.getElementById('users');
+    const tbody = table.querySelector('tbody');
+    const modal = document.getElementById('modal');
+
+    loadBtn.onclick = () => {
+      loadBtn.disabled = true;
+      loader.hidden = false;
+      table.hidden = true;
+
+      // Имитируем медленный сервер: данные приходят через 2 секунды
+      setTimeout(() => {
+        tbody.innerHTML = '';
+        users.forEach((u) => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = '<td></td><td></td>';
+          tr.children[0].textContent = u.name;
+          tr.children[1].textContent = u.role;
+          tbody.appendChild(tr);
+        });
+        loader.hidden = true;
+        table.hidden = false;
+        loadBtn.disabled = false;
+      }, 2000);
+    };
+
+    document.getElementById('open-modal').onclick = () => { modal.hidden = false; };
+    document.getElementById('close-modal').onclick = () => { modal.hidden = true; };
+  </script>
+</body>
+</html>

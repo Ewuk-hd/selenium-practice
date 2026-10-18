@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Список дел</title>
+</head>
+<body>
+  <h1>Список дел</h1>
+  <input id="new-task" placeholder="Новая задача">
+  <button id="add-btn">Добавить</button>
+  <p id="count">Задач: 0</p>
+  <ul id="task-list"></ul>
+
+  <script>
+    const input = document.getElementById('new-task');
+    const list = document.getElementById('task-list');
+    const count = document.getElementById('count');
+
+    function updateCount() {
+      count.textContent = 'Задач: ' + list.children.length;
+    }
+
+    function addTask() {
+      const text = input.value.trim();
+      if (text === '') return;
+      const li = document.createElement('li');
+      li.innerHTML = '<span class="text"></span> <button class="delete">Удалить</button>';
+      li.querySelector('.text').textContent = text;
+      li.querySelector('.delete').onclick = () => { li.remove(); updateCount(); };
+      list.appendChild(li);
+      input.value = '';
+      updateCount();
+    }
+
+    document.getElementById('add-btn').onclick = addTask;
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') addTask(); });
+  </script>
+</body>
+</html>

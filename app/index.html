@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Вход в систему</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 320px; margin: 40px auto; }
+    input, button { display: block; width: 100%; margin: 8px 0; padding: 8px; }
+    .success { color: green; }
+    .error { color: red; }
+  </style>
+</head>
+<body>
+  <h1>Вход</h1>
+  <input id="username" type="text" placeholder="Логин">
+  <input id="password" type="password" placeholder="Пароль">
+  <button id="login-btn">Войти</button>
+  <p id="message" hidden></p>
+
+  <script>
+    const message = document.getElementById('message');
+
+    document.getElementById('login-btn').addEventListener('click', () => {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      message.hidden = true;
+
+      if (username === '' || password === '') {
+        showMessage('Заполните все поля', 'error');
+        return;
+      }
+
+      // Имитируем запрос к серверу: ответ приходит через 1 секунду
+      setTimeout(() => {
+        if (username === 'student' && password === '12345') {
+          showMessage('Добро пожаловать, ' + username + '!', 'success');
+        } else {
+          showMessage('Неверный логин или пароль', 'error');
+        }
+      }, 1000);
+    });
+
+    function showMessage(text, type) {
+      message.textContent = text;
+      message.className = type;
+      message.hidden = false;
+    }
+  </script>
+</body>
+</html>

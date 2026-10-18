@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Калькулятор</title>
+</head>
+<body>
+  <h1>Калькулятор</h1>
+  <input id="a" type="number" placeholder="Первое число">
+  <select id="op">
+    <option value="+">+</option>
+    <option value="-">−</option>
+    <option value="*">×</option>
+    <option value="/">÷</option>
+  </select>
+  <input id="b" type="number" placeholder="Второе число">
+  <button id="calc">=</button>
+  <p>Результат: <span id="result"></span></p>
+
+  <script>
+    const result = document.getElementById('result');
+    document.getElementById('calc').onclick = () => {
+      const aText = document.getElementById('a').value;
+      const bText = document.getElementById('b').value;
+      const op = document.getElementById('op').value;
+
+      if (aText === '' || bText === '') {
+        result.textContent = 'Введите оба числа';
+        return;
+      }
+
+      const a = Number(aText);
+      const b = Number(bText);
+
+      if (op === '/' && b === 0) {
+        result.textContent = 'Ошибка: деление на ноль';
+        return;
+      }
+
+      let r;
+      if (op === '+') r = a + b;
+      else if (op === '-') r = a - b;
+      else if (op === '*') r = a * b;
+      else r = a / b;
+
+      result.textContent = String(r);
+    };
+  </script>
+</body>
+</html>

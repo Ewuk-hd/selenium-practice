@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Регистрация</title>
+  <style>
+    input, select, button { display: block; margin: 8px 0; padding: 6px; }
+    #errors { color: red; }
+    #result { color: green; }
+  </style>
+</head>
+<body>
+  <h1>Регистрация</h1>
+  <input id="name" placeholder="Имя">
+  <input id="email" placeholder="Email">
+  <input id="age" type="number" placeholder="Возраст">
+  <select id="city">
+    <option value="">— выберите город —</option>
+    <option value="moscow">Москва</option>
+    <option value="spb">Санкт-Петербург</option>
+    <option value="kazan">Казань</option>
+  </select>
+  <label><input id="agree" type="checkbox"> Согласен с правилами</label>
+  <button id="submit" disabled>Зарегистрироваться</button>
+  <ul id="errors"></ul>
+  <p id="result"></p>
+
+  <script>
+    const agree = document.getElementById('agree');
+    const submit = document.getElementById('submit');
+    const errorsList = document.getElementById('errors');
+    const result = document.getElementById('result');
+
+    agree.onchange = () => { submit.disabled = !agree.checked; };
+
+    submit.onclick = () => {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const age = Number(document.getElementById('age').value);
+      const city = document.getElementById('city');
+      const errors = [];
+
+      if (name.length < 2) errors.push('Имя должно быть не короче 2 символов');
+      if (!email.includes('@')) errors.push('Некорректный email');
+      if (!(age >= 14 && age <= 100)) errors.push('Возраст должен быть от 14 до 100');
+      if (city.value === '') errors.push('Выберите город');
+
+      errorsList.innerHTML = '';
+      errors.forEach((text) => {
+        const li = document.createElement('li');
+        li.textContent = text;
+        errorsList.appendChild(li);
+      });
+
+      result.textContent = errors.length === 0
+        ? 'Регистрация успешна: ' + name + ', ' + city.options[city.selectedIndex].text
+        : '';
+    };
+  </script>
+</body>
+</html>

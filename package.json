@@ -1,0 +1,11 @@
+{
+  "name": "selenium-practice",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  },
+  "dependencies": {
+    "selenium-webdriver": "^4.51.0"
+  }
+}

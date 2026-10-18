@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Счётчик</title>
+</head>
+<body>
+  <h1>Счётчик</h1>
+  <p>Значение: <span id="counter">0</span></p>
+  <button id="minus">−</button>
+  <button id="plus">+</button>
+  <button id="reset">Сбросить</button>
+
+  <script>
+    let value = 0;
+    const counter = document.getElementById('counter');
+    function render() { counter.textContent = value; }
+    document.getElementById('plus').onclick = () => { value++; render(); };
+    document.getElementById('minus').onclick = () => { if (value > 0) value--; render(); };
+    document.getElementById('reset').onclick = () => { value = 0; render(); };
+  </script>
+</body>
+</html>
